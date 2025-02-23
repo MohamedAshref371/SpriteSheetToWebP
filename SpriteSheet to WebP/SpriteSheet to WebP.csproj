@@ -12,7 +12,12 @@
     <Title>Convert Sprite Sheet Image To Animated WebP Image v1.0</Title>
     <Copyright>Copyright ©  2025</Copyright>
     <PackageIcon></PackageIcon>
+    <ApplicationIcon>icon-64.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon-64.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="14.4.0" />
