@@ -137,14 +137,14 @@ namespace SpriteSheet_to_WebP
         private void AnimationDelay_ValueChanged(object sender, EventArgs e)
         {
             frameDelay.Text = (animationDelay.Value * 10).ToString();
-            fbs.Text = ((int)(100 / animationDelay.Value)).ToString();
+            fbs.Text = Math.Round(100 / animationDelay.Value, 2).ToString();
         }
 
         private void ResizeMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-           bool isDisabled = resizeMode.SelectedIndex == 0;
-            outputFrameWidth.Enabled = isDisabled;
-            outputFrameHeight.Enabled = isDisabled;
+           bool isEnabled = resizeMode.SelectedIndex != 0;
+            outputFrameWidth.Enabled = isEnabled;
+            outputFrameHeight.Enabled = isEnabled;
         }
     }
 }
