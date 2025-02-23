@@ -10,6 +10,7 @@ namespace SpriteSheet_to_WebP
         private void Form1_Load(object sender, EventArgs e)
         {
             compressionMode.SelectedIndex = 0;
+            resizeMode.SelectedIndex = 0;
         }
 
         string inputFolder = "", outputFolder = "";
@@ -96,6 +97,11 @@ namespace SpriteSheet_to_WebP
         {
             frame.ResetPage();
 
+            if (resizeMode.SelectedIndex == 1)
+                frame.Resize((uint)outputFrameWidth.Value, (uint)outputFrameHeight.Value);
+            else if (resizeMode.SelectedIndex == 2)
+                frame.Scale((uint)outputFrameWidth.Value, (uint)outputFrameHeight.Value);
+
             frame.AnimationDelay = (uint)animationDelay.Value;
             frame.Quality = (uint)quality.Value;
 
@@ -128,5 +134,17 @@ namespace SpriteSheet_to_WebP
         static bool IsFrameEmpty(MagickImage frame)
             => frame.Statistics().Composite().Mean == 0;
 
+        private void AnimationDelay_ValueChanged(object sender, EventArgs e)
+        {
+            frameDelay.Text = (animationDelay.Value * 10).ToString();
+            fbs.Text = ((int)(100 / animationDelay.Value)).ToString();
+        }
+
+        private void ResizeMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           bool isDisabled = resizeMode.SelectedIndex == 0;
+            outputFrameWidth.Enabled = isDisabled;
+            outputFrameHeight.Enabled = isDisabled;
+        }
     }
 }
