@@ -14,7 +14,7 @@ namespace SpriteSheet_to_WebP
         }
 
         string inputFolder = "", outputFolder = "";
-        string[] pngFiles;
+        string[] pngFiles = [];
         private void OpenFolder_Click(object sender, EventArgs e)
         {
             if (folderBDialog.ShowDialog() == DialogResult.OK)
@@ -25,20 +25,20 @@ namespace SpriteSheet_to_WebP
         {
             if (inputFolder == "")
             {
-                MessageBox.Show("");
+                MessageBox.Show("ﬁ„ » ÕœÌœ „Ã·œ ’Ê— √Ê—«ﬁ «·‹ ”»—«Ì  √Ê·«\nSelect the sprite-sheet images folder first", "Input folder not selected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
 
             if (!Directory.Exists(inputFolder))
             {
-                MessageBox.Show("");
+                MessageBox.Show("„Ã·œ ’Ê— √Ê—«ﬁ «·‹ ”»—«Ì  ·„ Ì⁄œ „ÊÃÊœ«\nThe sprite-sheet images folder no longer exists", "Input folder doesn't exist", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
 
             pngFiles = Directory.GetFiles(inputFolder, "*.png", SearchOption.TopDirectoryOnly);
             if (pngFiles.Length == 0)
             {
-                MessageBox.Show("");
+                MessageBox.Show("„Ã·œ «·’Ê— «·„œŒ·… «·–Ì ﬁ„  » ÕœÌœÂ ›«—€\nThe input images folder you selected is empty", "Input folder is empty", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace SpriteSheet_to_WebP
 
             if (outputFolder == inputFolder)
             {
-                MessageBox.Show("");
+                MessageBox.Show("«Œ — „Ã·œ« „Œ ·›« ⁄‰ „Ã·œ ’Ê— √Ê—«ﬁ «·‹ ”»—«Ì \nSelect a folder different from the sprite-sheet images folder", "Input folder = output folder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
