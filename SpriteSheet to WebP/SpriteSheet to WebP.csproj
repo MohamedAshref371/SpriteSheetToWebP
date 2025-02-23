@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>SpriteSheet_to_WebP</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Product>Convert Sprite-Sheet Image to WebP</Product>
+    <Company>github.com/MohamedAshref371</Company>
+    <Title>Convert Sprite Sheet Image To Animated WebP Image v1.0</Title>
+    <Copyright>Copyright ©  2025</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="14.4.0" />
+  </ItemGroup>
+
+</Project>
