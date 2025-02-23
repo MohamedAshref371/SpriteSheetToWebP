@@ -288,7 +288,7 @@
             // animationDelay
             // 
             animationDelay.Location = new Point(150, 128);
-            animationDelay.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            animationDelay.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             animationDelay.Name = "animationDelay";
             animationDelay.Size = new Size(56, 23);
             animationDelay.TabIndex = 18;
