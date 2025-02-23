@@ -11,6 +11,7 @@
     <Company>github.com/MohamedAshref371</Company>
     <Title>Convert Sprite Sheet Image To Animated WebP Image v1.0</Title>
     <Copyright>Copyright ©  2025</Copyright>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
