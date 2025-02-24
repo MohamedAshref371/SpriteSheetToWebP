@@ -71,6 +71,10 @@
             label26 = new Label();
             label27 = new Label();
             resizeMode = new ComboBox();
+            losslessCheckBox = new CheckBox();
+            label28 = new Label();
+            label29 = new Label();
+            progressBar = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)frameWidth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)frameHeight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)animationDelay).BeginInit();
@@ -84,7 +88,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(322, 9);
+            label1.Location = new Point(334, 9);
             label1.Name = "label1";
             label1.RightToLeft = RightToLeft.Yes;
             label1.Size = new Size(228, 21);
@@ -96,7 +100,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(12, 9);
+            label2.Location = new Point(17, 9);
             label2.Name = "label2";
             label2.Size = new Size(226, 21);
             label2.TabIndex = 1;
@@ -107,7 +111,7 @@
             // 
             openFolder.FlatStyle = FlatStyle.Popup;
             openFolder.Font = new Font("Segoe UI", 12F);
-            openFolder.Location = new Point(244, 5);
+            openFolder.Location = new Point(253, 5);
             openFolder.Name = "openFolder";
             openFolder.Size = new Size(72, 28);
             openFolder.TabIndex = 2;
@@ -116,15 +120,11 @@
             openFolder.UseVisualStyleBackColor = true;
             openFolder.Click += OpenFolder_Click;
             // 
-            // folderBDialog
-            // 
-            folderBDialog.ShowNewFolderButton = false;
-            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(114, 51);
+            label3.Location = new Point(123, 53);
             label3.Name = "label3";
             label3.Size = new Size(107, 21);
             label3.TabIndex = 3;
@@ -135,7 +135,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(114, 79);
+            label4.Location = new Point(123, 81);
             label4.Name = "label4";
             label4.Size = new Size(111, 21);
             label4.TabIndex = 4;
@@ -146,7 +146,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(247, 128);
+            label5.Location = new Point(256, 128);
             label5.Name = "label5";
             label5.Size = new Size(104, 21);
             label5.TabIndex = 5;
@@ -157,7 +157,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(100, 174);
+            label6.Location = new Point(109, 174);
             label6.Name = "label6";
             label6.Size = new Size(158, 21);
             label6.TabIndex = 6;
@@ -168,18 +168,19 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(50, 275);
+            label7.Location = new Point(57, 277);
             label7.Name = "label7";
             label7.Size = new Size(153, 21);
             label7.TabIndex = 7;
             label7.Text = "Compression Mode :";
             label7.TextAlign = ContentAlignment.MiddleCenter;
+            label7.Visible = false;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(191, 235);
+            label8.Location = new Point(135, 246);
             label8.Name = "label8";
             label8.Size = new Size(67, 21);
             label8.TabIndex = 8;
@@ -190,7 +191,7 @@
             // 
             saveFolder.FlatStyle = FlatStyle.Popup;
             saveFolder.Font = new Font("Segoe UI", 12F);
-            saveFolder.Location = new Point(243, 422);
+            saveFolder.Location = new Point(253, 471);
             saveFolder.Name = "saveFolder";
             saveFolder.Size = new Size(85, 28);
             saveFolder.TabIndex = 11;
@@ -203,7 +204,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(16, 426);
+            label9.Location = new Point(19, 475);
             label9.Name = "label9";
             label9.Size = new Size(221, 21);
             label9.TabIndex = 10;
@@ -214,7 +215,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F);
-            label10.Location = new Point(334, 426);
+            label10.Location = new Point(347, 475);
             label10.Name = "label10";
             label10.RightToLeft = RightToLeft.Yes;
             label10.Size = new Size(220, 21);
@@ -225,7 +226,7 @@
             // frameWidth
             // 
             frameWidth.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            frameWidth.Location = new Point(244, 51);
+            frameWidth.Location = new Point(253, 53);
             frameWidth.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
             frameWidth.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             frameWidth.Name = "frameWidth";
@@ -236,7 +237,7 @@
             // frameHeight
             // 
             frameHeight.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            frameHeight.Location = new Point(244, 80);
+            frameHeight.Location = new Point(253, 82);
             frameHeight.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
             frameHeight.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             frameHeight.Name = "frameHeight";
@@ -248,7 +249,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F);
-            label11.Location = new Point(346, 52);
+            label11.Location = new Point(355, 54);
             label11.Name = "label11";
             label11.RightToLeft = RightToLeft.Yes;
             label11.Size = new Size(94, 21);
@@ -260,7 +261,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 12F);
-            label12.Location = new Point(347, 79);
+            label12.Location = new Point(356, 81);
             label12.Name = "label12";
             label12.RightToLeft = RightToLeft.Yes;
             label12.Size = new Size(93, 21);
@@ -271,7 +272,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(295, 56);
+            label13.Location = new Point(304, 58);
             label13.Name = "label13";
             label13.Size = new Size(37, 15);
             label13.TabIndex = 16;
@@ -280,7 +281,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(295, 84);
+            label14.Location = new Point(304, 86);
             label14.Name = "label14";
             label14.Size = new Size(37, 15);
             label14.TabIndex = 17;
@@ -288,7 +289,7 @@
             // 
             // animationDelay
             // 
-            animationDelay.Location = new Point(150, 128);
+            animationDelay.Location = new Point(159, 128);
             animationDelay.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             animationDelay.Name = "animationDelay";
             animationDelay.Size = new Size(56, 23);
@@ -300,7 +301,7 @@
             // 
             frameDelay.AutoSize = true;
             frameDelay.Font = new Font("Segoe UI", 10F);
-            frameDelay.Location = new Point(357, 130);
+            frameDelay.Location = new Point(366, 130);
             frameDelay.Name = "frameDelay";
             frameDelay.Size = new Size(47, 19);
             frameDelay.TabIndex = 19;
@@ -310,7 +311,7 @@
             // 
             animationDelayLabel.AutoSize = true;
             animationDelayLabel.Font = new Font("Segoe UI", 12F);
-            animationDelayLabel.Location = new Point(12, 127);
+            animationDelayLabel.Location = new Point(21, 127);
             animationDelayLabel.Name = "animationDelayLabel";
             animationDelayLabel.Size = new Size(132, 21);
             animationDelayLabel.TabIndex = 20;
@@ -321,7 +322,7 @@
             // 
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 12F);
-            label17.Location = new Point(456, 125);
+            label17.Location = new Point(465, 125);
             label17.Name = "label17";
             label17.Size = new Size(43, 21);
             label17.TabIndex = 21;
@@ -330,7 +331,7 @@
             // 
             // animationIterations
             // 
-            animationIterations.Location = new Point(264, 174);
+            animationIterations.Location = new Point(273, 174);
             animationIterations.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             animationIterations.Name = "animationIterations";
             animationIterations.Size = new Size(56, 23);
@@ -339,40 +340,41 @@
             // quality
             // 
             quality.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            quality.Location = new Point(263, 235);
-            quality.Minimum = new decimal(new int[] { 60, 0, 0, 0 });
+            quality.Location = new Point(207, 246);
             quality.Name = "quality";
             quality.Size = new Size(56, 23);
             quality.TabIndex = 23;
-            quality.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            quality.ValueChanged += Quality_ValueChanged;
             // 
             // compressionMode
             // 
             compressionMode.DropDownStyle = ComboBoxStyle.DropDownList;
             compressionMode.FormattingEnabled = true;
-            compressionMode.Items.AddRange(new object[] { "default   بدون ضغط", "lossless   بدون فقد", "lossy   ضغط بجودة محسنة" });
-            compressionMode.Location = new Point(209, 273);
+            compressionMode.Items.AddRange(new object[] { "default   = quality", "lossless   بدون فقد", "lossy   ضغط بجودة محسنة" });
+            compressionMode.Location = new Point(216, 275);
             compressionMode.Name = "compressionMode";
             compressionMode.Size = new Size(163, 23);
             compressionMode.TabIndex = 24;
+            compressionMode.Visible = false;
             // 
             // label16
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 12F);
-            label16.Location = new Point(378, 275);
+            label16.Location = new Point(385, 277);
             label16.Name = "label16";
             label16.RightToLeft = RightToLeft.Yes;
             label16.Size = new Size(110, 21);
             label16.TabIndex = 25;
             label16.Text = "طريقة الضغط :";
             label16.TextAlign = ContentAlignment.MiddleCenter;
+            label16.Visible = false;
             // 
             // label18
             // 
             label18.AutoSize = true;
             label18.Font = new Font("Segoe UI", 12F);
-            label18.Location = new Point(326, 235);
+            label18.Location = new Point(270, 246);
             label18.Name = "label18";
             label18.RightToLeft = RightToLeft.Yes;
             label18.Size = new Size(59, 21);
@@ -384,7 +386,7 @@
             // 
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 12F);
-            label19.Location = new Point(326, 174);
+            label19.Location = new Point(335, 174);
             label19.Name = "label19";
             label19.RightToLeft = RightToLeft.Yes;
             label19.Size = new Size(136, 21);
@@ -396,7 +398,7 @@
             // 
             label20.AutoSize = true;
             label20.Font = new Font("Segoe UI", 12F);
-            label20.Location = new Point(87, 199);
+            label20.Location = new Point(96, 199);
             label20.Name = "label20";
             label20.RightToLeft = RightToLeft.Yes;
             label20.Size = new Size(402, 21);
@@ -408,7 +410,7 @@
             // 
             fbs.AutoSize = true;
             fbs.Font = new Font("Segoe UI", 12F);
-            fbs.Location = new Point(505, 125);
+            fbs.Location = new Point(514, 125);
             fbs.Name = "fbs";
             fbs.Size = new Size(28, 21);
             fbs.TabIndex = 29;
@@ -418,7 +420,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(295, 390);
+            label15.Location = new Point(304, 406);
             label15.Name = "label15";
             label15.Size = new Size(37, 15);
             label15.TabIndex = 37;
@@ -428,7 +430,7 @@
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 12F);
-            label21.Location = new Point(347, 385);
+            label21.Location = new Point(356, 401);
             label21.Name = "label21";
             label21.RightToLeft = RightToLeft.Yes;
             label21.Size = new Size(129, 21);
@@ -440,7 +442,7 @@
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 12F);
-            label22.Location = new Point(346, 358);
+            label22.Location = new Point(355, 374);
             label22.Name = "label22";
             label22.RightToLeft = RightToLeft.Yes;
             label22.Size = new Size(130, 21);
@@ -451,7 +453,7 @@
             // outputFrameHeight
             // 
             outputFrameHeight.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            outputFrameHeight.Location = new Point(244, 386);
+            outputFrameHeight.Location = new Point(253, 402);
             outputFrameHeight.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
             outputFrameHeight.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             outputFrameHeight.Name = "outputFrameHeight";
@@ -462,7 +464,7 @@
             // outputFrameWidth
             // 
             outputFrameWidth.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            outputFrameWidth.Location = new Point(244, 357);
+            outputFrameWidth.Location = new Point(253, 373);
             outputFrameWidth.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
             outputFrameWidth.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             outputFrameWidth.Name = "outputFrameWidth";
@@ -474,7 +476,7 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 12F);
-            label23.Location = new Point(74, 385);
+            label23.Location = new Point(83, 401);
             label23.Name = "label23";
             label23.Size = new Size(164, 21);
             label23.TabIndex = 31;
@@ -485,7 +487,7 @@
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 12F);
-            label24.Location = new Point(74, 357);
+            label24.Location = new Point(83, 373);
             label24.Name = "label24";
             label24.Size = new Size(160, 21);
             label24.TabIndex = 30;
@@ -495,7 +497,7 @@
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(295, 362);
+            label25.Location = new Point(304, 378);
             label25.Name = "label25";
             label25.Size = new Size(37, 15);
             label25.TabIndex = 36;
@@ -505,7 +507,7 @@
             // 
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 12F);
-            label26.Location = new Point(4, 321);
+            label26.Location = new Point(13, 337);
             label26.Name = "label26";
             label26.Size = new Size(282, 21);
             label26.TabIndex = 38;
@@ -515,7 +517,7 @@
             // 
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 12F);
-            label27.Location = new Point(384, 321);
+            label27.Location = new Point(393, 337);
             label27.Name = "label27";
             label27.RightToLeft = RightToLeft.Yes;
             label27.Size = new Size(174, 21);
@@ -527,17 +529,66 @@
             resizeMode.DropDownStyle = ComboBoxStyle.DropDownList;
             resizeMode.FormattingEnabled = true;
             resizeMode.Items.AddRange(new object[] { "No   لا", "Resize   أفضل", "Scale   أسرع" });
-            resizeMode.Location = new Point(283, 321);
+            resizeMode.Location = new Point(292, 337);
             resizeMode.Name = "resizeMode";
             resizeMode.Size = new Size(102, 23);
             resizeMode.TabIndex = 40;
             resizeMode.SelectedIndexChanged += ResizeMode_SelectedIndexChanged;
             // 
+            // losslessCheckBox
+            // 
+            losslessCheckBox.AutoSize = true;
+            losslessCheckBox.Checked = true;
+            losslessCheckBox.CheckState = CheckState.Checked;
+            losslessCheckBox.Font = new Font("Segoe UI", 12F);
+            losslessCheckBox.Location = new Point(353, 244);
+            losslessCheckBox.Name = "losslessCheckBox";
+            losslessCheckBox.Size = new Size(156, 25);
+            losslessCheckBox.TabIndex = 41;
+            losslessCheckBox.Text = "lossless - بدون فقد";
+            losslessCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            label28.Font = new Font("Segoe UI", 12F);
+            label28.Location = new Point(244, 264);
+            label28.Name = "label28";
+            label28.RightToLeft = RightToLeft.Yes;
+            label28.Size = new Size(341, 53);
+            label28.TabIndex = 42;
+            label28.Text = "يمكنك تعيين الجودة=صفر وتفعيل خيار \"بدون فقد\" للحصول على افضل جودة ممكنة مع اقل حجم";
+            label28.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            label29.Font = new Font("Segoe UI", 12F);
+            label29.Location = new Point(-4, 264);
+            label29.Name = "label29";
+            label29.Size = new Size(244, 53);
+            label29.TabIndex = 43;
+            label29.Text = "Set quality=0 and ✔lossless to get best quality and lowest size";
+            label29.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // progressBar
+            // 
+            progressBar.AccessibleDescription = "";
+            progressBar.AccessibleName = "";
+            progressBar.Location = new Point(12, 438);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(557, 23);
+            progressBar.TabIndex = 44;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(562, 462);
+            ClientSize = new Size(581, 511);
+            Controls.Add(progressBar);
+            Controls.Add(label18);
+            Controls.Add(quality);
+            Controls.Add(label8);
+            Controls.Add(losslessCheckBox);
+            Controls.Add(label28);
             Controls.Add(resizeMode);
             Controls.Add(label27);
             Controls.Add(label26);
@@ -551,10 +602,7 @@
             Controls.Add(label25);
             Controls.Add(fbs);
             Controls.Add(label19);
-            Controls.Add(label18);
             Controls.Add(label16);
-            Controls.Add(compressionMode);
-            Controls.Add(quality);
             Controls.Add(animationIterations);
             Controls.Add(label17);
             Controls.Add(animationDelayLabel);
@@ -567,8 +615,6 @@
             Controls.Add(saveFolder);
             Controls.Add(label9);
             Controls.Add(label10);
-            Controls.Add(label8);
-            Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -579,12 +625,15 @@
             Controls.Add(label13);
             Controls.Add(frameDelay);
             Controls.Add(label20);
+            Controls.Add(label29);
+            Controls.Add(compressionMode);
+            Controls.Add(label7);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Convert Sprite Sheet Image To Animated WebP Image v1.0";
+            Text = "Convert Sprite Sheet Image To Animated WebP Image v1.1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)frameWidth).EndInit();
             ((System.ComponentModel.ISupportInitialize)frameHeight).EndInit();
@@ -641,5 +690,9 @@
         private Label label26;
         private Label label27;
         private ComboBox resizeMode;
+        private CheckBox losslessCheckBox;
+        private Label label28;
+        private Label label29;
+        private ProgressBar progressBar;
     }
 }

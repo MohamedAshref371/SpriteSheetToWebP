@@ -9,7 +9,7 @@ namespace SpriteSheet_to_WebP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            compressionMode.SelectedIndex = 0;
+            //compressionMode.SelectedIndex = 0;
             resizeMode.SelectedIndex = 0;
         }
 
@@ -17,6 +17,7 @@ namespace SpriteSheet_to_WebP
         string[] pngFiles = [];
         private void OpenFolder_Click(object sender, EventArgs e)
         {
+            folderBDialog.ShowNewFolderButton = false;
             if (folderBDialog.ShowDialog() == DialogResult.OK)
                 inputFolder = folderBDialog.SelectedPath;
         }
@@ -42,8 +43,11 @@ namespace SpriteSheet_to_WebP
                 return;
             }
 
+            folderBDialog.ShowNewFolderButton = true;
             if (folderBDialog.ShowDialog() == DialogResult.OK)
                 outputFolder = folderBDialog.SelectedPath;
+            else
+                return;
 
             if (outputFolder == inputFolder)
             {
@@ -53,13 +57,26 @@ namespace SpriteSheet_to_WebP
 
             fWidth = (int)frameWidth.Value;
             fHeight = (int)frameHeight.Value;
+            outFWidth = (uint)outputFrameWidth.Value;
+            outFHeight = (uint)outputFrameHeight.Value;
+            animDelay = (uint)animationDelay.Value;
+            qualityUint = (uint)quality.Value;
+
+            progressBar.Value = 0;
+            progressBar.Maximum = pngFiles.Length;
+            Refresh(); Application.DoEvents();
 
             foreach (string file in pngFiles)
+            {
                 GetWebpFromSpriteSheet(file);
-
+                progressBar.Value++;
+                Refresh(); Application.DoEvents();
+            }
+            
         }
 
         int fWidth, fHeight;
+        uint outFWidth, outFHeight, animDelay, qualityUint;
 
         private void GetWebpFromSpriteSheet(string file)
         {
@@ -98,22 +115,15 @@ namespace SpriteSheet_to_WebP
             frame.ResetPage();
 
             if (resizeMode.SelectedIndex == 1)
-                frame.Resize((uint)outputFrameWidth.Value, (uint)outputFrameHeight.Value);
+                frame.Resize(outFWidth, outFHeight);
             else if (resizeMode.SelectedIndex == 2)
-                frame.Scale((uint)outputFrameWidth.Value, (uint)outputFrameHeight.Value);
+                frame.Scale(outFWidth, outFHeight);
 
-            frame.AnimationDelay = (uint)animationDelay.Value;
-            frame.Quality = (uint)quality.Value;
+            frame.AnimationDelay = animDelay;
+            frame.Quality = qualityUint;
 
-            if (compressionMode.SelectedIndex == 1)
-            {
+            if (losslessCheckBox.Checked && quality.Value != 100)
                 frame.Settings.SetDefine(MagickFormat.WebP, "lossless", "true");
-            }
-            else if (compressionMode.SelectedIndex == 2)
-            {
-                frame.Settings.SetDefine(MagickFormat.WebP, "method", "6");
-                frame.Settings.SetDefine(MagickFormat.WebP, "preprocessing", "2");
-            }
         }
 
         int CheckLastEmptyFrames(MagickImage spriteSheet, int rows, int cols)
@@ -136,15 +146,19 @@ namespace SpriteSheet_to_WebP
 
         private void AnimationDelay_ValueChanged(object sender, EventArgs e)
         {
-            frameDelay.Text = (animationDelay.Value * 10).ToString();
+            frameDelay.Text = (animationDelay.Value * 10).ToString() + " ms";
             fbs.Text = Math.Round(100 / animationDelay.Value, 2).ToString();
         }
 
         private void ResizeMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-           bool isEnabled = resizeMode.SelectedIndex != 0;
-            outputFrameWidth.Enabled = isEnabled;
-            outputFrameHeight.Enabled = isEnabled;
+            bool enable = resizeMode.SelectedIndex != 0;
+            outputFrameWidth.Enabled = enable;
+            outputFrameHeight.Enabled = enable;
         }
+
+        private void Quality_ValueChanged(object sender, EventArgs e)
+            => losslessCheckBox.Enabled = quality.Value != 100;
+        
     }
 }

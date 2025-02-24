@@ -9,10 +9,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Product>Convert Sprite-Sheet Image to WebP</Product>
     <Company>github.com/MohamedAshref371</Company>
-    <Title>Convert Sprite Sheet Image To Animated WebP Image v1.0</Title>
+    <Title>Convert Sprite Sheet Image To Animated WebP Image</Title>
     <Copyright>Copyright ©  2025</Copyright>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>icon-64.ico</ApplicationIcon>
+    <AssemblyVersion>1.1.0.371</AssemblyVersion>
+    <FileVersion>1.1.0.371</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
