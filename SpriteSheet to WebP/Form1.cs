@@ -1,5 +1,6 @@
 using ImageMagick;
 using System;
+using static System.Windows.Forms.DataFormats;
 
 namespace SpriteSheet_to_WebP
 {
@@ -10,6 +11,7 @@ namespace SpriteSheet_to_WebP
         private void Form1_Load(object sender, EventArgs e)
         {
             //compressionMode.SelectedIndex = 0;
+            format.SelectedIndex = 0;
             resizeMode.SelectedIndex = 0;
         }
 
@@ -55,38 +57,56 @@ namespace SpriteSheet_to_WebP
                 return;
             }
 
-            fWidth = (int)frameWidth.Value;
-            fHeight = (int)frameHeight.Value;
+            if (spritesNumberCheck.Checked)
+            {
+                cols = (int)frameWidth.Value;
+                rows = (int)frameHeight.Value;
+            }
+            else
+            {
+                fWidth = (int)frameWidth.Value;
+                fHeight = (int)frameHeight.Value;
+            }
+
             outFWidth = (uint)outputFrameWidth.Value;
             outFHeight = (uint)outputFrameHeight.Value;
+
             animDelay = (uint)animationDelay.Value;
             qualityUint = (uint)quality.Value;
 
             progressBar.Value = 0;
             progressBar.Maximum = pngFiles.Length;
-            Refresh(); Application.DoEvents();
 
             foreach (string file in pngFiles)
             {
+                Refresh(); Application.DoEvents();
                 GetWebpFromSpriteSheet(file);
                 progressBar.Value++;
-                Refresh(); Application.DoEvents();
             }
-            
+
         }
 
-        int fWidth, fHeight;
+        int cols, rows, fWidth, fHeight;
         uint outFWidth, outFHeight, animDelay, qualityUint;
 
         private void GetWebpFromSpriteSheet(string file)
         {
             using MagickImage spriteSheet = new(file);
 
-            int cols = (int)(spriteSheet.Width / fWidth);
-            int rows = (int)(spriteSheet.Height / fHeight);
+            if (spritesNumberCheck.Checked)
+            {
+                fWidth = (int)(spriteSheet.Width / cols);
+                fHeight = (int)(spriteSheet.Height / rows);
+            }
+            else
+            {
+                cols = (int)(spriteSheet.Width / fWidth);
+                rows = (int)(spriteSheet.Height / fHeight);
+            }
+            
             MagickImageCollection animation = [];
 
-            int index = 0, count = CheckLastEmptyFrames(spriteSheet, rows, cols);
+            int index = 0, count = CheckLastEmptyFrames(spriteSheet);
             for (int y = 0; y < rows; y++)
             {
                 for (int x = 0; x < cols; x++)
@@ -105,9 +125,15 @@ namespace SpriteSheet_to_WebP
 
             animation[0].AnimationIterations = (uint)animationIterations.Value;
 
-            string animatedWebPPath = Path.Combine(outputFolder, file.Split('\\').Last()[..^3] + "webp");
-            animation.Write(animatedWebPPath, MagickFormat.WebP);
-
+            string outputFilePath = Path.Combine(outputFolder, file.Split('\\').Last()[..^3]);
+            if (format.SelectedIndex == 1)
+            {
+                animation.Optimize();
+                animation.OptimizeTransparency();
+                animation.Write(outputFilePath + "gif", MagickFormat.Gif);
+            }
+            else
+                animation.Write(outputFilePath + "webp", MagickFormat.WebP);
         }
 
         void SetFrameSettings(MagickImage frame)
@@ -120,13 +146,26 @@ namespace SpriteSheet_to_WebP
                 frame.Scale(outFWidth, outFHeight);
 
             frame.AnimationDelay = animDelay;
-            frame.Quality = qualityUint;
 
-            if (losslessCheckBox.Checked && quality.Value != 100)
-                frame.Settings.SetDefine(MagickFormat.WebP, "lossless", "true");
+            if (format.SelectedIndex == 1)
+            {
+                frame.Format = MagickFormat.Gif;
+                frame.Depth = 8;
+                frame.Quantize(new QuantizeSettings
+                {
+                    Colors = 256,
+                    DitherMethod = DitherMethod.FloydSteinberg
+                });
+            }
+            else
+            {
+                frame.Quality = qualityUint;
+                if (losslessCheckBox.Checked)
+                    frame.Settings.SetDefine(MagickFormat.WebP, "lossless", "true");
+            }
         }
 
-        int CheckLastEmptyFrames(MagickImage spriteSheet, int rows, int cols)
+        int CheckLastEmptyFrames(MagickImage spriteSheet)
         {
             int count = rows * cols;
             for (int x = cols - 1; x > 0; x--)
@@ -157,8 +196,32 @@ namespace SpriteSheet_to_WebP
             outputFrameHeight.Enabled = enable;
         }
 
-        private void Quality_ValueChanged(object sender, EventArgs e)
-            => losslessCheckBox.Enabled = quality.Value != 100;
-        
+        private void SpritesNumberCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (spritesNumberCheck.Checked)
+            {
+                pix1Label.Visible = pix2Label.Visible = false;
+                frameWidth.Minimum = frameHeight.Minimum = 1;
+                frameWidth.Value = frameHeight.Value = 2;
+                widthEnglishLabel.Text = "Columns Number :";
+                heightEnglishLabel.Text = "Rows Number :";
+                widthArabicLabel.Text = "⁄œœ «·√⁄„œ… :";
+                heightArabicLabel.Text = "⁄œœ «·’›Ê› :";
+                frameWidth.Location = new Point(frameWidth.Location.X + 30, frameWidth.Location.Y);
+                frameHeight.Location = new Point(frameHeight.Location.X + 30, frameHeight.Location.Y);
+            }
+            else
+            {
+                pix1Label.Visible = pix2Label.Visible = true;
+                frameWidth.Minimum = frameHeight.Minimum = 8;
+                frameWidth.Value = frameHeight.Value = 240;
+                widthEnglishLabel.Text = "Frame Width :";
+                heightEnglishLabel.Text = "Frame Height :";
+                widthArabicLabel.Text = "⁄—÷ «·≈ÿ«— :";
+                heightArabicLabel.Text = "≈— ›«⁄ «·≈ÿ«— :";
+                frameWidth.Location = new Point(frameWidth.Location.X - 30, frameWidth.Location.Y);
+                frameHeight.Location = new Point(frameHeight.Location.X - 30, frameHeight.Location.Y);
+            }
+        }
     }
 }

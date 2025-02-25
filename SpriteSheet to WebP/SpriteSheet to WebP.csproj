@@ -13,8 +13,8 @@
     <Copyright>Copyright ©  2025</Copyright>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>icon-64.ico</ApplicationIcon>
-    <AssemblyVersion>1.1.0.371</AssemblyVersion>
-    <FileVersion>1.1.0.371</FileVersion>
+    <AssemblyVersion>1.2.0.371</AssemblyVersion>
+    <FileVersion>1.2.0.371</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
