@@ -193,7 +193,10 @@ namespace SpriteSheet_to_WebP
 
         private void FrameDelay_ValueChanged(object sender, EventArgs e)
         {
-            fbs.Text = Math.Round(1000 / frameDelay.Value, 2).ToString();
+            if (frameDelay.Value % 10 != 0)
+                frameDelay.Value = Math.Round(frameDelay.Value / 10) * 10;
+            else
+                fbs.Text = Math.Round(1000 / frameDelay.Value, 2).ToString();
         }
 
         private void ResizeMode_SelectedIndexChanged(object sender, EventArgs e)
