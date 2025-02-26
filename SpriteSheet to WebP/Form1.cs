@@ -87,7 +87,7 @@ namespace SpriteSheet_to_WebP
 
         }
 
-        int cols, rows, fWidth, fHeight, animTicksPerSecond;
+        int cols, rows, fWidth, fHeight;
         uint newWidth, newHeight, animDelay, qualityUint;
         decimal outFWidth, outFHeight;
 
