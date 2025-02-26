@@ -1,6 +1,5 @@
 using ImageMagick;
 using System;
-using static System.Windows.Forms.DataFormats;
 
 namespace SpriteSheet_to_WebP
 {
@@ -10,6 +9,8 @@ namespace SpriteSheet_to_WebP
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int index = ProductVersion.IndexOf('.', ProductVersion.IndexOf('.') + 1);
+            this.Text = this.Text + ProductVersion[..index];
             //compressionMode.SelectedIndex = 0;
             format.SelectedIndex = 0;
             resizeMode.SelectedIndex = 0;
@@ -68,10 +69,20 @@ namespace SpriteSheet_to_WebP
                 fHeight = (int)frameHeight.Value;
             }
 
-            outFWidth = (uint)outputFrameWidth.Value;
-            outFHeight = (uint)outputFrameHeight.Value;
+            outFWidth = outputFrameWidth.Value;
+            outFHeight = outputFrameHeight.Value;
 
-            animDelay = (uint)animationDelay.Value;
+            if (frameDelay.Value % 10 == 0)
+            {
+                animTicksPerSecond = 100;
+                animDelay = (uint)(frameDelay.Value / 10);
+            }
+            else
+            {
+                animTicksPerSecond = 200;
+                animDelay = (uint)(frameDelay.Value / 5);
+            }
+
             qualityUint = (uint)quality.Value;
 
             progressBar.Value = 0;
@@ -86,8 +97,9 @@ namespace SpriteSheet_to_WebP
 
         }
 
-        int cols, rows, fWidth, fHeight;
-        uint outFWidth, outFHeight, animDelay, qualityUint;
+        int cols, rows, fWidth, fHeight, animTicksPerSecond;
+        uint newWidth , newHeight, animDelay, qualityUint;
+        decimal outFWidth, outFHeight;
 
         private void GetWebpFromSpriteSheet(string file)
         {
@@ -103,7 +115,13 @@ namespace SpriteSheet_to_WebP
                 cols = (int)(spriteSheet.Width / fWidth);
                 rows = (int)(spriteSheet.Height / fHeight);
             }
-            
+
+            if (resizeMode.SelectedIndex != 0)
+            {
+                newWidth = (uint)(ratio.Checked ? outFWidth * fWidth : outFWidth);
+                newHeight = (uint)(ratio.Checked ? outFHeight * fHeight : outFHeight);
+            }
+
             MagickImageCollection animation = [];
 
             int index = 0, count = CheckLastEmptyFrames(spriteSheet);
@@ -141,12 +159,14 @@ namespace SpriteSheet_to_WebP
             frame.ResetPage();
 
             if (resizeMode.SelectedIndex == 1)
-                frame.Resize(outFWidth, outFHeight);
+                frame.Resize(newWidth, newHeight);
             else if (resizeMode.SelectedIndex == 2)
-                frame.Scale(outFWidth, outFHeight);
+                frame.Scale(newWidth, newHeight);
 
+            if (animTicksPerSecond != 100)
+                frame.AnimationTicksPerSecond = animTicksPerSecond;
             frame.AnimationDelay = animDelay;
-
+            
             if (format.SelectedIndex == 1)
             {
                 frame.Format = MagickFormat.Gif;
@@ -183,10 +203,10 @@ namespace SpriteSheet_to_WebP
         static bool IsFrameEmpty(MagickImage frame)
             => frame.Statistics().Composite().Mean == 0;
 
-        private void AnimationDelay_ValueChanged(object sender, EventArgs e)
+        private void FrameDelay_ValueChanged(object sender, EventArgs e)
         {
-            frameDelay.Text = (animationDelay.Value * 10).ToString() + " ms";
-            fbs.Text = Math.Round(100 / animationDelay.Value, 2).ToString();
+            frameDelay.Value = Math.Round(frameDelay.Value / 5) * 5;
+            fbs.Text = Math.Round(1000 / frameDelay.Value, 2).ToString();
         }
 
         private void ResizeMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,6 +241,31 @@ namespace SpriteSheet_to_WebP
                 heightArabicLabel.Text = "ÅÑÊÝÇÚ ÇáÅØÇÑ :";
                 frameWidth.Location = new Point(frameWidth.Location.X - 30, frameWidth.Location.Y);
                 frameHeight.Location = new Point(frameHeight.Location.X - 30, frameHeight.Location.Y);
+            }
+        }
+
+        private void Ratio_CheckedChanged(object sender, EventArgs e)
+        {
+            pix3Label.Visible = pix4Label.Visible = !ratio.Checked;
+            if (ratio.Checked)
+            {
+                outputFrameWidth.Minimum = outputFrameHeight.Minimum = 0.05M;
+                outputFrameWidth.Maximum = outputFrameHeight.Maximum = 2M;
+                outputFrameWidth.Increment = outputFrameHeight.Increment = 0.1M;
+                outputFrameWidth.DecimalPlaces = outputFrameHeight.DecimalPlaces = 2;
+                outputFrameWidth.Value = outputFrameHeight.Value = 0.5M;
+                outputFrameWidth.Location = new Point(outputFrameWidth.Location.X + 20, outputFrameWidth.Location.Y);
+                outputFrameHeight.Location = new Point(outputFrameHeight.Location.X + 20, outputFrameHeight.Location.Y);
+            }
+            else
+            {
+                outputFrameWidth.Minimum = outputFrameHeight.Minimum = 8M;
+                outputFrameWidth.Maximum = outputFrameHeight.Maximum = 512M;
+                outputFrameWidth.Increment = outputFrameHeight.Increment = 10M;
+                outputFrameWidth.DecimalPlaces = outputFrameHeight.DecimalPlaces = 0;
+                outputFrameWidth.Value = outputFrameHeight.Value = 120M;
+                outputFrameWidth.Location = new Point(outputFrameWidth.Location.X - 20, outputFrameWidth.Location.Y);
+                outputFrameHeight.Location = new Point(outputFrameHeight.Location.X - 20, outputFrameHeight.Location.Y);
             }
         }
     }
