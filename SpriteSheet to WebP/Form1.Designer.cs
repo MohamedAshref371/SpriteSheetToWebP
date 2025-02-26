@@ -293,10 +293,10 @@
             // frameDelay
             // 
             frameDelay.ForeColor = Color.FromArgb(0, 64, 64);
-            frameDelay.Increment = new decimal(new int[] { 5, 0, 0, 0 });
+            frameDelay.Increment = new decimal(new int[] { 10, 0, 0, 0 });
             frameDelay.Location = new Point(246, 134);
             frameDelay.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            frameDelay.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
+            frameDelay.Minimum = new decimal(new int[] { 20, 0, 0, 0 });
             frameDelay.Name = "frameDelay";
             frameDelay.Size = new Size(56, 23);
             frameDelay.TabIndex = 18;

@@ -72,17 +72,7 @@ namespace SpriteSheet_to_WebP
             outFWidth = outputFrameWidth.Value;
             outFHeight = outputFrameHeight.Value;
 
-            if (frameDelay.Value % 10 == 0)
-            {
-                animTicksPerSecond = 100;
-                animDelay = (uint)(frameDelay.Value / 10);
-            }
-            else
-            {
-                animTicksPerSecond = 200;
-                animDelay = (uint)(frameDelay.Value / 5);
-            }
-
+            animDelay = (uint)(frameDelay.Value / 10);
             qualityUint = (uint)quality.Value;
 
             progressBar.Value = 0;
@@ -98,7 +88,7 @@ namespace SpriteSheet_to_WebP
         }
 
         int cols, rows, fWidth, fHeight, animTicksPerSecond;
-        uint newWidth , newHeight, animDelay, qualityUint;
+        uint newWidth, newHeight, animDelay, qualityUint;
         decimal outFWidth, outFHeight;
 
         private void GetWebpFromSpriteSheet(string file)
@@ -163,10 +153,8 @@ namespace SpriteSheet_to_WebP
             else if (resizeMode.SelectedIndex == 2)
                 frame.Scale(newWidth, newHeight);
 
-            if (animTicksPerSecond != 100)
-                frame.AnimationTicksPerSecond = animTicksPerSecond;
             frame.AnimationDelay = animDelay;
-            
+
             if (format.SelectedIndex == 1)
             {
                 frame.Format = MagickFormat.Gif;
@@ -205,7 +193,6 @@ namespace SpriteSheet_to_WebP
 
         private void FrameDelay_ValueChanged(object sender, EventArgs e)
         {
-            frameDelay.Value = Math.Round(frameDelay.Value / 5) * 5;
             fbs.Text = Math.Round(1000 / frameDelay.Value, 2).ToString();
         }
 
